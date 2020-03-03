@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
+import { UserService } from '../user.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   registerForm;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
     this.registerForm = this.formBuilder.group({
       userID: '',
       userName: '',
@@ -22,7 +24,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(registrationDetails){
-    let isPaswordMatches:Boolean = this.validatePassword(registrationDetails.password, registrationDetails.retype_password);
+    let isPasswordMatched:Boolean = this.validatePassword(registrationDetails.password, registrationDetails.retype_password);
+    if(isPasswordMatched){
+      this.userService.registerUser(registrationDetails);
+      alert(registrationDetails.userName + " registered successfully.")
+    }
+    else
+      alert("Password Mismatch");
   }
 
   private validatePassword(password:String, retypePassword: String):Boolean{
