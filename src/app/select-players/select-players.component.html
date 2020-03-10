@@ -1,0 +1,149 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<app-match-details></app-match-details>
+<div id="row">
+    <div class="badgeColumn" style="text-align: center;background-color: lightcyan"><span [matBadge] = "totalWKSelected" >WK</span></div>
+    <div class="badgeColumn" style="text-align: center;background-color: lightcyan"><span [matBadge] = "totalBatSelected" >BAT</span></div>
+    <div class="badgeColumn" style="text-align: center;background-color: lightcyan"><span [matBadge] = "totalAlrSelected" >AR</span></div>
+    <div class="badgeColumn" style="text-align: center;background-color: lightcyan"><span [matBadge] = "totalBowSelected" >BOW</span></div>
+</div>
+<div id="row" style="padding-top:8%;background-color: lightslategrey;">
+<mat-tab-group >
+    <mat-tab label="WK" style="color: black;">
+        <table mat-table [dataSource]="wicketkeepers" class="mat-elevation-z8">
+            <ng-container matColumnDef="imgURL">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.imgURL" style="height: 50px; width:50px">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Points</th>
+                <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Price</th>
+                <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+            </ng-container>
+
+           <ng-container matColumnDef="checked">
+                <mat-header-cell *matHeaderCellDef style="text-align: center;height:55.67px">Select</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="height:56.33px"> 
+                    <mat-checkbox [(checked)]="element.checked" (change)="onChange($event, element)"></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-tab>
+    <mat-tab label="BAT">
+        <table mat-table [dataSource]="batsmans" class="mat-elevation-z8">
+            <ng-container matColumnDef="imgURL">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.imgURL" style="height: 50px; width:50px">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Points</th>
+                <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Price</th>
+                <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+            </ng-container>
+
+           <ng-container matColumnDef="checked">
+                <mat-header-cell *matHeaderCellDef style="text-align: center;height:55.67px">Select</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="height:56.33px"> 
+                    <mat-checkbox [(checked)]="element.checked" (change)="onChange($event, element)"></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-tab>
+    <mat-tab label="AL">
+        <table mat-table [dataSource]="allrounders" class="mat-elevation-z8">
+            <ng-container matColumnDef="imgURL">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.imgURL" style="height: 50px; width:50px">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Points</th>
+                <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Price</th>
+                <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+            </ng-container>
+
+           <ng-container matColumnDef="checked">
+                <mat-header-cell *matHeaderCellDef style="text-align: center;height:55.67px">Select</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="height:56.33px"> 
+                    <mat-checkbox [(checked)]="element.checked" (change)="onChange($event, element)"></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+    <mat-tab label="BOW">
+        <table mat-table [dataSource]="bowlers" class="mat-elevation-z8">
+            <ng-container matColumnDef="imgURL">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <img [src]="element.imgURL" style="height: 50px; width:50px">
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="points">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Points</th>
+                <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Price</th>
+                <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+            </ng-container>
+
+           <ng-container matColumnDef="checked">
+                <mat-header-cell *matHeaderCellDef style="text-align: center;height:55.67px">Select</mat-header-cell>
+                <mat-cell *matCellDef="let element;" style="height:56.33px"> 
+                    <mat-checkbox [(checked)]="element.checked" (change)="onChange($event, element)"></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-tab>
+  </mat-tab-group>
+</div>
+
+<button class="transparentButton mdc-fab app-fab--absolute" aria-label="Favorite" (click)="submit()">
+    <span>Next</span>
+    <span class="mdc-fab__icon material-icons">forward</span>
+</button>
+
+<div class="navbar" id="myNavbar">
+    <a routerLink="/showTeams" class=" nav active">Teams(3)</a>
+    <a routerLink="/showContests" class=" nav ">Contests(5)</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" (click)="menuClick()">&#9776;</a>
+  </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,9 @@ export class LoginComponent implements OnInit {
 
   loginForm;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
     this.loginForm = this.formBuilder.group({
-      username: '',
+      userID: '',
       password: ''
     });
    }
@@ -22,5 +24,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginData) {
     console.warn(loginData);
+    this.userService.login(loginData);
   }
 }

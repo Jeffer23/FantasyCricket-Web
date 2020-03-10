@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarConfig } from '@angular/material/snack-bar/';
 
 import { UserService } from '../user.service';
 
@@ -11,7 +13,7 @@ import { UserService } from '../user.service';
 export class RegisterComponent implements OnInit {
 
   registerForm;
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private snackBar: MatSnackBar) {
     this.registerForm = this.formBuilder.group({
       userID: '',
       userName: '',
@@ -27,15 +29,23 @@ export class RegisterComponent implements OnInit {
     let isPasswordMatched:Boolean = this.validatePassword(registrationDetails.password, registrationDetails.retype_password);
     if(isPasswordMatched){
       this.userService.registerUser(registrationDetails);
-      alert(registrationDetails.userName + " registered successfully.")
     }
     else
-      alert("Password Mismatch");
+      this.showSnackBar("Password Mismatch");
   }
 
   private validatePassword(password:String, retypePassword: String):Boolean{
     if(password === retypePassword)
       return true;
     else return false;
+  }
+
+  private showSnackBar(message: string){
+    let config = new MatSnackBarConfig();
+        config.panelClass = ['snack-bar'];
+        config.duration = 3000;
+        config.horizontalPosition = "center";
+        config.verticalPosition = "top";
+        this.snackBar.open(message, null ,config);
   }
 }

@@ -8,3 +8,8 @@ export const appConstants = {
         "type" : "POST"
     }
 }
+
+export const SESSION_ID = {
+    "UserDetailsKey" : "UserDetails",
+    "SelectedPlayersKey" : "SelectedPlayers"
+};
